@@ -1,0 +1,433 @@
+// Hero Section - Stunning, Dynamic, and Visually Captivating
+// Paula Wilson Realty
+
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background: linear-gradient(
+    135deg,
+    rgba($primary-600, 0.95) 0%,
+    rgba($secondary-600, 0.9) 30%,
+    rgba($accent-600, 0.85) 60%,
+    rgba($primary-700, 0.95) 100%
+  );
+  
+  // Animated mesh gradient overlay
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+      radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.08) 0%, transparent 50%),
+      radial-gradient(circle at 40% 40%, rgba($accent-300, 0.1) 0%, transparent 50%);
+    animation: gradientShift 15s ease-in-out infinite;
+    z-index: 1;
+  }
+  
+  // Grid pattern overlay
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+      linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 50px 50px;
+    animation: gridMove 20s linear infinite;
+    z-index: 1;
+  }
+}
+
+// ===== BACKGROUND ELEMENTS =====
+.hero__background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.hero__bg-element {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(1px);
+  
+  &--1 {
+    top: 10%;
+    right: 15%;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(
+      circle,
+      rgba($accent-300, 0.2) 0%,
+      rgba($accent-400, 0.1) 50%,
+      transparent 100%
+    );
+    
+    @include respond-to(md) {
+      width: 400px;
+      height: 400px;
+    }
+  }
+  
+  &--2 {
+    bottom: 20%;
+    left: 10%;
+    width: 250px;
+    height: 250px;
+    background: radial-gradient(
+      circle,
+      rgba($secondary-300, 0.15) 0%,
+      rgba($secondary-400, 0.08) 50%,
+      transparent 100%
+    );
+    
+    @include respond-to(md) {
+      width: 350px;
+      height: 350px;
+    }
+  }
+  
+  &--3 {
+    top: 50%;
+    left: 50%;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(
+      circle,
+      rgba($primary-300, 0.1) 0%,
+      rgba($primary-400, 0.05) 50%,
+      transparent 100%
+    );
+    transform: translate(-50%, -50%);
+    
+    @include respond-to(md) {
+      width: 300px;
+      height: 300px;
+    }
+  }
+}
+
+// ===== PARALLAX CONTAINER =====
+.hero__parallax {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  padding: $space-20 0 $space-16;
+  
+  @include respond-to(md) {
+    padding: $space-24 0 $space-20;
+  }
+  
+  @include respond-to(lg) {
+    padding: $space-32 0 $space-24;
+  }
+}
+
+// ===== MAIN CONTENT =====
+.hero__content {
+  display: grid;
+  gap: $space-12;
+  align-items: center;
+  
+  @include respond-to(lg) {
+    grid-template-columns: 1fr 0.8fr;
+    gap: $space-16;
+  }
+}
+
+.hero__main {
+  text-align: center;
+  
+  @include respond-to(lg) {
+    text-align: left;
+  }
+}
+
+// ===== BADGE =====
+.hero__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-2;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: $backdrop-blur-md;
+  -webkit-backdrop-filter: $backdrop-blur-md;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: $radius-full;
+  padding: $space-3 $space-6;
+  margin-bottom: $space-6;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: $text-sm;
+  font-weight: $font-weight-semibold;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: $shadow-glass-sm;
+  transition: all $transition-base;
+  
+  &:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+    box-shadow: $shadow-glass-md;
+  }
+  
+  i {
+    font-size: $text-xs;
+    color: $accent-300;
+    animation: sparkle 2s ease-in-out infinite;
+  }
+}
+
+// ===== TYPOGRAPHY =====
+.hero__title {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: $font-weight-black;
+  line-height: $leading-tight;
+  color: white;
+  margin-bottom: $space-4;
+  letter-spacing: -0.02em;
+  
+  @include respond-to(md) {
+    font-size: clamp(3rem, 6vw, 5rem);
+  }
+  
+  @include respond-to(lg) {
+    font-size: clamp(3.5rem, 7vw, 6rem);
+  }
+}
+
+.hero__title-highlight {
+  background: linear-gradient(
+    135deg,
+    $accent-300 0%,
+    $accent-200 50%,
+    white 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  position: relative;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: $gradient-accent;
+    border-radius: $radius-full;
+    animation: underlineGrow 1s ease-out 0.5s forwards;
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+}
+
+.hero__subtitle {
+  font-size: $text-xl;
+  font-weight: $font-weight-medium;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: $space-4;
+
+  @include respond-to(md) {
+    font-size: $text-2xl;
+  }
+}
+
+.hero__description {
+  font-size: $text-lg;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: $leading-relaxed;
+  margin-bottom: $space-8;
+  max-width: 600px;
+
+  @include respond-to(lg) {
+    max-width: none;
+  }
+}
+
+// ===== ACTIONS =====
+.hero__actions {
+  display: flex;
+  flex-direction: column;
+  gap: $space-4;
+  align-items: center;
+  margin-bottom: $space-12;
+
+  @include respond-to(sm) {
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  @include respond-to(lg) {
+    justify-content: flex-start;
+  }
+}
+
+.hero__cta-primary {
+  background: linear-gradient(135deg, $accent-500 0%, $accent-600 100%);
+  color: $neutral-900;
+  font-weight: $font-weight-bold;
+  box-shadow: $shadow-xl;
+
+  &:hover {
+    background: linear-gradient(135deg, $accent-400 0%, $accent-500 100%);
+    transform: translateY(-3px);
+    box-shadow: $shadow-2xl;
+  }
+}
+
+.hero__cta-secondary {
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: $backdrop-blur-md;
+  -webkit-backdrop-filter: $backdrop-blur-md;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.25);
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: translateY(-3px);
+  }
+}
+
+// ===== STATS =====
+.hero__stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: $space-6;
+  max-width: 500px;
+
+  @include respond-to(lg) {
+    max-width: none;
+  }
+}
+
+.hero__stat {
+  text-align: center;
+  padding: $space-4;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: $backdrop-blur-md;
+  -webkit-backdrop-filter: $backdrop-blur-md;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: $radius-2xl;
+  transition: all $transition-base;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-4px);
+    box-shadow: $shadow-glass-md;
+  }
+}
+
+.hero__stat-number {
+  display: block;
+  font-size: $text-2xl;
+  font-weight: $font-weight-black;
+  color: $accent-200;
+  line-height: $leading-none;
+  margin-bottom: $space-1;
+
+  @include respond-to(md) {
+    font-size: $text-3xl;
+  }
+}
+
+.hero__stat-label {
+  font-size: $text-sm;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: $font-weight-medium;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+// ===== VISUAL SECTION =====
+.hero__visual {
+  position: relative;
+  display: flex;
+  justify-content: center;
+
+  @include respond-to(lg) {
+    justify-content: flex-end;
+  }
+}
+
+.hero__image-container {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  border-radius: $radius-4xl;
+  overflow: hidden;
+  box-shadow: $shadow-2xl;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      135deg,
+      rgba($primary-500, 0.2) 0%,
+      transparent 50%,
+      rgba($accent-500, 0.2) 100%
+    );
+    z-index: 2;
+    pointer-events: none;
+  }
+}
+
+.hero__image {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform $transition-slow;
+}
+
+.hero__image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.hero__floating-card {
+  position: absolute;
+  top: $space-8;
+  right: $space-8;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: $backdrop-blur-lg;
+  -webkit-backdrop-filter: $backdrop-blur-lg;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: $radius-2xl;
+  padding: $space-4 $space-6;
+  box-shadow: $shadow-xl;
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+  color: $neutral-700;
+  font-weight: $font-weight-semibold;
+
+  i {
+    color: $primary-500;
+    font-size: $text-lg;
+  }
+}
