@@ -1,0 +1,337 @@
+// Paula Wilson Realty - Main App Styles
+// Layout and global component styles
+
+@import 'variables';
+@import 'mixins';
+
+.App {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow-x: hidden;
+  
+  // Animated background gradient
+  &::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      135deg,
+      rgba($primary-50, 0.8) 0%,
+      rgba($secondary-50, 0.6) 25%,
+      rgba($accent-50, 0.4) 50%,
+      rgba($primary-50, 0.6) 75%,
+      rgba($secondary-50, 0.8) 100%
+    );
+    z-index: -2;
+    animation: gradientShift 20s ease-in-out infinite;
+  }
+  
+  // Floating geometric shapes
+  &::after {
+    content: '';
+    position: fixed;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(
+      circle at 30% 70%,
+      rgba($primary-200, 0.1) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 70% 30%,
+      rgba($secondary-200, 0.08) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 50% 50%,
+      rgba($accent-200, 0.06) 0%,
+      transparent 50%
+    );
+    z-index: -1;
+    animation: float 30s ease-in-out infinite;
+    pointer-events: none;
+  }
+  
+  main {
+    flex: 1;
+    position: relative;
+    z-index: 1;
+  }
+}
+
+// ===== SECTION BACKGROUNDS =====
+.section {
+  position: relative;
+  overflow: hidden;
+  
+  &--hero {
+    background: linear-gradient(
+      135deg,
+      rgba($primary-600, 0.95) 0%,
+      rgba($secondary-600, 0.9) 50%,
+      rgba($accent-600, 0.95) 100%
+    );
+    color: white;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+      opacity: 0.3;
+      z-index: -1;
+    }
+  }
+  
+  &--light {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: $backdrop-blur-sm;
+    -webkit-backdrop-filter: $backdrop-blur-sm;
+  }
+  
+  &--glass {
+    @include glassmorphism(0.1, 20px, 0.2);
+  }
+  
+  &--gradient {
+    background: linear-gradient(
+      135deg,
+      rgba($neutral-50, 0.95) 0%,
+      rgba($primary-50, 0.8) 50%,
+      rgba($secondary-50, 0.95) 100%
+    );
+  }
+}
+
+// ===== FLOATING ELEMENTS =====
+.floating-element {
+  position: absolute;
+  pointer-events: none;
+  z-index: -1;
+  
+  &--circle {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle,
+      rgba($primary-300, 0.2) 0%,
+      rgba($primary-300, 0.1) 50%,
+      transparent 100%
+    );
+    animation: float 15s ease-in-out infinite;
+    
+    &:nth-child(2) {
+      animation-delay: -5s;
+      animation-duration: 20s;
+    }
+    
+    &:nth-child(3) {
+      animation-delay: -10s;
+      animation-duration: 25s;
+    }
+  }
+  
+  &--square {
+    width: 150px;
+    height: 150px;
+    border-radius: $radius-3xl;
+    background: linear-gradient(
+      45deg,
+      rgba($secondary-300, 0.15) 0%,
+      rgba($secondary-300, 0.05) 100%
+    );
+    animation: float 18s ease-in-out infinite reverse;
+    transform: rotate(45deg);
+  }
+  
+  &--triangle {
+    width: 0;
+    height: 0;
+    border-left: 75px solid transparent;
+    border-right: 75px solid transparent;
+    border-bottom: 130px solid rgba($accent-300, 0.1);
+    animation: float 22s ease-in-out infinite;
+    animation-delay: -7s;
+  }
+}
+
+// ===== SCROLL INDICATORS =====
+.scroll-indicator {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.2);
+  z-index: $z-fixed;
+  
+  &__progress {
+    height: 100%;
+    background: $gradient-primary;
+    width: 0%;
+    transition: width 0.1s ease-out;
+  }
+}
+
+// ===== LOADING STATES =====
+.loading {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-2;
+  
+  &__spinner {
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba($primary-500, 0.2);
+    border-top: 2px solid $primary-500;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+  
+  &__dots {
+    display: flex;
+    gap: $space-1;
+    
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: $primary-500;
+      animation: pulse 1.4s ease-in-out infinite both;
+      
+      &:nth-child(1) { animation-delay: -0.32s; }
+      &:nth-child(2) { animation-delay: -0.16s; }
+      &:nth-child(3) { animation-delay: 0s; }
+    }
+  }
+}
+
+// ===== ANIMATIONS =====
+@keyframes gradientShift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  33% {
+    transform: translateY(-30px) rotate(120deg);
+  }
+  66% {
+    transform: translateY(15px) rotate(240deg);
+  }
+}
+
+@keyframes slideInFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInFromBottom {
+  from {
+    opacity: 0;
+    transform: translateY(100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+// ===== RESPONSIVE UTILITIES =====
+.hide-mobile {
+  @media (max-width: $breakpoint-md - 1px) {
+    display: none !important;
+  }
+}
+
+.hide-desktop {
+  @include respond-to(md) {
+    display: none !important;
+  }
+}
+
+.show-mobile {
+  display: block;
+  
+  @include respond-to(md) {
+    display: none;
+  }
+}
+
+.show-desktop {
+  display: none;
+  
+  @include respond-to(md) {
+    display: block;
+  }
+}
+
+// ===== ACCESSIBILITY IMPROVEMENTS =====
+.focus-trap {
+  &:focus-within {
+    outline: 2px solid $primary-500;
+    outline-offset: 2px;
+  }
+}
+
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  background: $primary-600;
+  color: white;
+  padding: 8px;
+  text-decoration: none;
+  border-radius: $radius-md;
+  z-index: $z-modal;
+  
+  &:focus {
+    top: 6px;
+  }
+}
