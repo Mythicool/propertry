@@ -1,0 +1,752 @@
+// Hero Component
+
+.hero {
+  position: relative;
+  min-height: 70vh; // Reduced from 100vh (30% reduction)
+  @include flex-center;
+  overflow: hidden;
+  padding: $spacing-3xl 0; // Added padding for better content spacing
+
+  @include respond-to(md) {
+    min-height: 75vh; // Reduced from 100vh (25% reduction)
+    padding: $spacing-4xl 0;
+  }
+
+  @include respond-to(lg) {
+    min-height: 80vh; // Reduced from 100vh (20% reduction)
+    padding: $spacing-5xl 0;
+  }
+
+  &__background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 120%;
+    z-index: -2;
+  }
+
+  &__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    filter: brightness(0.7);
+  }
+
+  &__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      135deg,
+      rgba($primary-600, 0.9) 0%,
+      rgba($primary-800, 0.8) 30%,
+      rgba($accent-color, 0.7) 70%,
+      rgba($black, 0.6) 100%
+    );
+    z-index: -1;
+
+    // Add animated gradient overlay
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        45deg,
+        transparent 30%,
+        rgba($primary-300, 0.1) 50%,
+        transparent 70%
+      );
+      animation: shimmer 3s ease-in-out infinite;
+    }
+
+    // Geometric patterns
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image:
+        radial-gradient(circle at 25% 25%, rgba($secondary-400, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba($accent-color, 0.1) 0%, transparent 50%),
+        linear-gradient(45deg, transparent 40%, rgba($primary-300, 0.05) 50%, transparent 60%);
+      background-size: 400px 400px, 300px 300px, 200px 200px;
+      background-position: 0 0, 100px 100px, 50px 50px;
+      animation: patternMove 20s ease-in-out infinite;
+    }
+  }
+
+  // Background patterns animation
+  @keyframes patternMove {
+    0%, 100% {
+      background-position: 0 0, 100px 100px, 50px 50px;
+    }
+    50% {
+      background-position: 50px 50px, 150px 150px, 100px 100px;
+    }
+  }
+
+  // Floating animation for elements
+  @keyframes floatAnimation {
+    0%, 100% {
+      transform: translateY(0px) rotate(0deg);
+    }
+    25% {
+      transform: translateY(-10px) rotate(2deg);
+    }
+    50% {
+      transform: translateY(-5px) rotate(-1deg);
+    }
+    75% {
+      transform: translateY(-15px) rotate(1deg);
+    }
+  }
+
+  // Ripple effect animation
+  @keyframes rippleEffect {
+    0% {
+      transform: scale(0.8);
+      opacity: 0.8;
+    }
+    50% {
+      transform: scale(1.2);
+      opacity: 0.4;
+    }
+    100% {
+      transform: scale(1.8);
+      opacity: 0;
+    }
+  }
+
+  // Particle burst effect
+  @keyframes particleBurst {
+    0% {
+      transform: scale(0) rotate(0deg);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(1.2) rotate(180deg);
+      opacity: 0.6;
+    }
+    100% {
+      transform: scale(2) rotate(360deg);
+      opacity: 0;
+    }
+  }
+
+  // Floating Elements
+  &__floating-elements {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .floating-element {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    @include flex-center;
+    color: $white;
+    font-size: $font-xl;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba($white, 0.2);
+    box-shadow: $shadow-glass;
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    cursor: pointer;
+    pointer-events: auto;
+    overflow: visible;
+    animation: floatAnimation 6s ease-in-out infinite;
+
+    @include respond-to(md) {
+      width: 80px;
+      height: 80px;
+      font-size: $font-2xl;
+    }
+
+    // Pop animation on hover
+    &:hover {
+      transform: scale(1.4) rotate(15deg);
+      box-shadow:
+        $shadow-glass-lg,
+        0 0 30px rgba($white, 0.3),
+        0 0 60px rgba($primary-400, 0.2);
+      animation-play-state: paused;
+
+      &::before {
+        opacity: 1;
+        transform: scale(1.5);
+      }
+
+      &::after {
+        opacity: 1;
+        animation: rippleEffect 0.6s ease-out;
+      }
+    }
+
+    // Glow effect
+    &::before {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba($white, 0.3) 0%, transparent 70%);
+      opacity: 0;
+      transition: all 0.4s ease;
+      z-index: -1;
+    }
+
+    // Ripple effect
+    &::after {
+      content: '';
+      position: absolute;
+      inset: -20px;
+      border-radius: 50%;
+      border: 2px solid rgba($white, 0.4);
+      opacity: 0;
+      z-index: -1;
+    }
+
+    &--1 {
+      top: 20%;
+      right: 15%;
+      background: rgba($secondary-500, 0.25);
+      box-shadow: $shadow-secondary, $shadow-glass;
+      animation-delay: 0s;
+
+      &:hover {
+        box-shadow:
+          $shadow-secondary,
+          $shadow-glass-lg,
+          0 0 30px rgba($secondary-500, 0.4),
+          0 0 60px rgba($secondary-400, 0.2);
+      }
+
+      &::before {
+        background: radial-gradient(circle, rgba($secondary-400, 0.4) 0%, transparent 70%);
+      }
+
+      &::after {
+        border-color: rgba($secondary-400, 0.6);
+      }
+    }
+
+    &--2 {
+      top: 60%;
+      left: 10%;
+      background: rgba($primary-400, 0.25);
+      box-shadow: $shadow-primary, $shadow-glass;
+      animation-delay: 2s;
+
+      &:hover {
+        box-shadow:
+          $shadow-primary,
+          $shadow-glass-lg,
+          0 0 30px rgba($primary-400, 0.4),
+          0 0 60px rgba($primary-300, 0.2);
+      }
+
+      &::before {
+        background: radial-gradient(circle, rgba($primary-400, 0.4) 0%, transparent 70%);
+      }
+
+      &::after {
+        border-color: rgba($primary-400, 0.6);
+      }
+    }
+
+    &--3 {
+      top: 30%;
+      left: 20%;
+      background: rgba($accent-color, 0.25);
+      box-shadow: $shadow-accent, $shadow-glass;
+      animation-delay: 4s;
+
+      &:hover {
+        box-shadow:
+          $shadow-accent,
+          $shadow-glass-lg,
+          0 0 30px rgba($accent-color, 0.4),
+          0 0 60px rgba($accent-color, 0.2);
+      }
+
+      &::before {
+        background: radial-gradient(circle, rgba($accent-color, 0.4) 0%, transparent 70%);
+      }
+
+      &::after {
+        border-color: rgba($accent-color, 0.6);
+      }
+    }
+
+    // Add particle effects on click
+    &:active {
+      &::after {
+        animation: particleBurst 0.8s ease-out;
+      }
+    }
+
+    // Performance optimizations
+    will-change: transform;
+    contain: layout style paint;
+
+    &:not(:hover) {
+      will-change: auto;
+    }
+
+    // Accessibility improvements
+    &:focus-visible {
+      outline: 3px solid rgba($white, 0.8);
+      outline-offset: 4px;
+    }
+
+    // Reduce motion for accessibility
+    @media (prefers-reduced-motion: reduce) {
+      animation: none !important;
+      transition: transform 0.2s ease;
+
+      &:hover {
+        transform: scale(1.1) !important;
+        animation: none !important;
+      }
+
+      &::before,
+      &::after {
+        animation: none !important;
+        transition: opacity 0.2s ease;
+      }
+    }
+
+    // High contrast mode
+    @media (prefers-contrast: high) {
+      border: 2px solid $white;
+      background: rgba($black, 0.8) !important;
+
+      &:hover {
+        background: rgba($black, 0.9) !important;
+      }
+    }
+  }
+
+  &__content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    color: $white;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: $spacing-lg 0; // Reduced padding
+  }
+
+  // Hero Statistics
+  &__stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: $spacing-lg;
+    margin: $spacing-2xl 0;
+    padding: $spacing-lg;
+    background: rgba($white, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: $radius-xl;
+    border: 1px solid rgba($white, 0.2);
+
+    @include respond-to(md) {
+      grid-template-columns: repeat(3, 1fr);
+      margin: $spacing-3xl 0;
+    }
+  }
+
+  &__stat {
+    text-align: center;
+
+    &-number {
+      display: block;
+      font-size: $font-3xl;
+      font-weight: $font-bold;
+      color: $secondary-400;
+      margin-bottom: $spacing-xs;
+
+      @include respond-to(md) {
+        font-size: $font-4xl;
+      }
+    }
+
+    &-label {
+      font-size: $font-sm;
+      color: rgba($white, 0.9);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: $font-medium;
+    }
+  }
+
+  // Trust Indicators
+  &__trust-indicators {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: $spacing-xl;
+    margin-top: $spacing-xl;
+    flex-wrap: wrap;
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: $spacing-sm;
+      color: rgba($white, 0.9);
+      font-size: $font-sm;
+
+      i {
+        color: $secondary-400;
+        font-size: $font-lg;
+      }
+    }
+  }
+
+  // Quick Links
+  &__quick-links {
+    display: flex;
+    justify-content: center;
+    gap: $spacing-md;
+    margin-top: $spacing-lg;
+    flex-wrap: wrap;
+
+    .quick-link {
+      display: flex;
+      align-items: center;
+      gap: $spacing-xs;
+      padding: $spacing-sm $spacing-md;
+      background: rgba($white, 0.1);
+      border: 1px solid rgba($white, 0.2);
+      border-radius: $radius-full;
+      color: $white;
+      text-decoration: none;
+      font-size: $font-sm;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(5px);
+
+      &:hover {
+        background: rgba($white, 0.2);
+        transform: translateY(-2px);
+      }
+
+      i {
+        font-size: $font-xs;
+      }
+    }
+  }
+
+  &__title {
+    @include heading-1;
+    color: $white;
+    margin-bottom: $spacing-lg;
+    text-shadow: 0 2px 4px rgba($black, 0.3);
+
+    @include respond-to(md) {
+      font-size: $font-5xl;
+    }
+
+    @include respond-to(lg) {
+      font-size: $font-6xl;
+    }
+  }
+
+  &__subtitle {
+    @include body-text;
+    color: rgba($white, 0.9);
+    font-size: $font-lg;
+    margin-bottom: $spacing-2xl;
+    text-shadow: 0 1px 2px rgba($black, 0.3);
+
+    @include respond-to(md) {
+      font-size: $font-xl;
+    }
+  }
+
+  &__actions {
+    @include flex-center;
+    gap: $spacing-lg;
+    flex-wrap: wrap;
+
+    @include respond-to(sm) {
+      justify-content: center;
+    }
+  }
+
+  &__btn {
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba($white, 0.2),
+        transparent
+      );
+      transition: left 0.5s;
+    }
+
+    &:hover::before {
+      left: 100%;
+    }
+  }
+
+  // Scroll Indicator
+  &__scroll-indicator {
+    position: absolute;
+    bottom: $spacing-2xl;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+
+    .scroll-arrow {
+      color: $white;
+      font-size: $font-xl;
+      opacity: 0.8;
+      cursor: pointer;
+      transition: opacity $transition-normal;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+// Page Header (smaller hero for internal pages)
+.page-header {
+  padding: $spacing-4xl 0 $spacing-2xl;
+  text-align: center;
+  position: relative;
+
+  @include respond-to(md) {
+    padding: $spacing-5xl 0 $spacing-3xl;
+  }
+
+  &__content {
+    h1 {
+      @include heading-1;
+      margin-bottom: $spacing-md;
+    }
+
+    p {
+      @include body-text;
+      font-size: $font-lg;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+  }
+
+  // Background variants
+  &.bg-primary {
+    background: linear-gradient(135deg, $primary-color 0%, $primary-dark 100%);
+    
+    h1, p {
+      color: $white;
+    }
+  }
+
+  &.bg-gray-50 {
+    background-color: $gray-50;
+  }
+}
+
+// Section headers
+.section-header {
+  margin-bottom: $spacing-3xl;
+
+  h2 {
+    @include heading-2;
+    margin-bottom: $spacing-md;
+  }
+
+  .section-subtitle {
+    @include body-text;
+    font-size: $font-lg;
+    color: $gray-600;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  &.text-center {
+    text-align: center;
+  }
+}
+
+// CTA Section
+.cta-section {
+  text-align: center;
+
+  &__content {
+    max-width: 800px;
+    margin: 0 auto;
+
+    h2 {
+      @include heading-2;
+      margin-bottom: $spacing-lg;
+    }
+
+    p {
+      @include body-text;
+      font-size: $font-lg;
+      margin-bottom: $spacing-2xl;
+    }
+  }
+
+  &__text {
+    @include body-text;
+    font-size: $font-lg;
+    margin-bottom: $spacing-2xl;
+  }
+
+  &__actions {
+    @include flex-center;
+    gap: $spacing-lg;
+    flex-wrap: wrap;
+
+    @include respond-to(sm) {
+      justify-content: center;
+    }
+  }
+
+  // Background variants
+  &.bg-primary {
+    background: linear-gradient(135deg, $primary-color 0%, $primary-dark 100%);
+    color: $white;
+
+    h2, p {
+      color: $white;
+    }
+  }
+}
+
+// About section
+.about-section {
+  &__content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $spacing-3xl;
+    align-items: center;
+
+    @include respond-to(lg) {
+      grid-template-columns: 1fr 1.2fr;
+    }
+  }
+
+  &__image {
+    position: relative;
+    text-align: center;
+
+    @include respond-to(lg) {
+      order: 2;
+    }
+  }
+
+  &__photo {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    border-radius: $radius-2xl;
+    box-shadow: $shadow-xl;
+  }
+
+  &__badge {
+    position: absolute;
+    bottom: $spacing-lg;
+    right: $spacing-lg;
+    background-color: $secondary-color;
+    color: $white;
+    padding: $spacing-sm $spacing-md;
+    border-radius: $radius-full;
+    font-size: $font-sm;
+    font-weight: $font-semibold;
+    @include flex-center;
+    gap: $spacing-xs;
+    box-shadow: $shadow-lg;
+
+    @include respond-to(lg) {
+      bottom: $spacing-xl;
+      right: $spacing-xl;
+    }
+  }
+
+  &__text {
+    @include respond-to(lg) {
+      order: 1;
+    }
+
+    h2 {
+      @include heading-2;
+      margin-bottom: $spacing-sm;
+    }
+
+    h3 {
+      @include heading-3;
+      margin-bottom: $spacing-lg;
+    }
+
+    p {
+      @include body-text;
+      margin-bottom: $spacing-lg;
+    }
+  }
+
+  &__highlights {
+    margin: $spacing-2xl 0;
+
+    .highlight {
+      @include flex-center;
+      justify-content: flex-start;
+      gap: $spacing-md;
+      margin-bottom: $spacing-lg;
+
+      i {
+        font-size: $font-2xl;
+        width: 48px;
+        text-align: center;
+      }
+
+      h4 {
+        font-size: $font-lg;
+        font-weight: $font-semibold;
+        color: $gray-900;
+        margin-bottom: $spacing-xs;
+      }
+
+      p {
+        color: $gray-600;
+        margin: 0;
+      }
+    }
+  }
+
+  &__actions {
+    @include flex-center;
+    gap: $spacing-lg;
+    flex-wrap: wrap;
+
+    @include respond-to(sm) {
+      justify-content: flex-start;
+    }
+  }
+}

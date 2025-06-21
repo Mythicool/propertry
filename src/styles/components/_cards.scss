@@ -1,0 +1,729 @@
+// Card Components
+
+.card {
+  @include card;
+  position: relative;
+  overflow: hidden;
+  transition: all $transition-normal;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba($primary-color, 0.1),
+      transparent
+    );
+    transition: left 0.6s;
+    z-index: 0; // Changed from 1 to 0 to put it behind the image
+    pointer-events: none;
+  }
+
+  &:hover {
+    transform: translateY(-16px) scale(1.03);
+    box-shadow: $shadow-3xl, $shadow-primary;
+
+    &::before {
+      left: 100%;
+    }
+
+    &::after {
+      opacity: 1;
+      transform: scale(1.05);
+    }
+
+    .card__image img {
+      transform: scale(1.1) rotate(1deg);
+    }
+
+    .card__image-overlay {
+      opacity: 1;
+    }
+
+    .card__content {
+      transform: translateY(-2px);
+    }
+
+    .card__title {
+      color: $primary-600;
+    }
+  }
+
+  // Add a subtle glow effect on hover
+  &::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: $gradient-primary;
+    border-radius: inherit;
+    z-index: -1;
+    opacity: 0;
+    transition: all 0.4s ease;
+    filter: blur(8px);
+  }
+
+  &__image {
+    position: relative;
+    overflow: hidden;
+    @include aspect-ratio(16, 10);
+    z-index: 1; // Ensure image container is above the shimmer effect
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform $transition-slow;
+      position: relative;
+      z-index: 1; // Ensure image is above any background effects
+    }
+
+    &-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba($black, 0) 0%,
+        rgba($black, 0.1) 50%,
+        rgba($black, 0.7) 100%
+      );
+      opacity: 0;
+      transition: opacity $transition-normal;
+    }
+
+    &-badge {
+      position: absolute;
+      top: $spacing-md;
+      left: $spacing-md;
+      background-color: $primary-color;
+      color: $white;
+      padding: $spacing-xs $spacing-sm;
+      border-radius: $radius-full;
+      font-size: $font-xs;
+      font-weight: $font-semibold;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+
+      &--secondary {
+        background-color: $secondary-color;
+      }
+
+      &--success {
+        background-color: $success;
+      }
+
+      &--warning {
+        background-color: $warning;
+      }
+
+      &--error {
+        background-color: $error;
+      }
+    }
+
+    &-actions {
+      position: absolute;
+      top: $spacing-md;
+      right: $spacing-md;
+      display: flex;
+      gap: $spacing-sm;
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: all $transition-normal;
+
+      .btn {
+        background-color: rgba($white, 0.9);
+        color: $gray-700;
+        padding: $spacing-sm;
+        border-radius: $radius-full;
+        backdrop-filter: blur(10px);
+
+        &:hover {
+          background-color: $white;
+          color: $primary-color;
+        }
+      }
+    }
+
+    &:hover .card__image-actions {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    &-indicators {
+      position: absolute;
+      bottom: $spacing-md;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: $spacing-xs;
+      z-index: 2;
+
+      .indicator {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background-color: rgba($white, 0.5);
+        border: none;
+        cursor: pointer;
+        transition: all $transition-normal;
+
+        &.active {
+          background-color: $white;
+          transform: scale(1.2);
+        }
+
+        &:hover {
+          background-color: rgba($white, 0.8);
+        }
+      }
+    }
+  }
+
+  &__nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba($white, 0.9);
+    color: $gray-700;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    @include flex-center;
+    cursor: pointer;
+    transition: all $transition-normal;
+    z-index: 2;
+    opacity: 0;
+
+    &:hover {
+      background-color: $white;
+      transform: translateY(-50%) scale(1.1);
+    }
+
+    &--prev {
+      left: $spacing-md;
+    }
+
+    &--next {
+      right: $spacing-md;
+    }
+  }
+
+  &:hover &__nav {
+    opacity: 1;
+  }
+
+  &__content {
+    padding: $spacing-lg;
+    position: relative;
+    transition: transform 0.3s ease;
+    background: linear-gradient(135deg, rgba($white, 0.95) 0%, rgba($white, 1) 100%);
+    backdrop-filter: blur(10px);
+
+    &--sm {
+      padding: $spacing-md;
+    }
+
+    &--lg {
+      padding: $spacing-xl;
+    }
+
+    // Add subtle inner glow
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba($primary-300, 0.5), transparent);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+  }
+
+  &:hover &__content::before {
+    opacity: 1;
+  }
+
+  &__header {
+    margin-bottom: $spacing-md;
+
+    .card__title {
+      margin-bottom: $spacing-xs;
+    }
+
+    .card__subtitle {
+      color: $gray-500;
+      font-size: $font-sm;
+    }
+  }
+
+  &__title {
+    font-family: $font-secondary;
+    font-size: $font-xl;
+    font-weight: $font-semibold;
+    color: $gray-900;
+    line-height: $leading-snug;
+    margin-bottom: $spacing-sm;
+    transition: all 0.3s ease;
+    position: relative;
+
+    // Add subtle text shadow on hover
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: $gradient-primary;
+      transition: width 0.3s ease;
+      border-radius: 1px;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      transition: all $transition-normal;
+      position: relative;
+
+      &:hover {
+        color: $primary-600;
+        text-shadow: 0 2px 4px rgba($primary-color, 0.1);
+      }
+    }
+  }
+
+  &:hover &__title::after {
+    width: 100%;
+  }
+
+  &__text {
+    color: $gray-600;
+    line-height: $leading-relaxed;
+    margin-bottom: $spacing-md;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &__footer {
+    margin-top: $spacing-lg;
+    padding-top: $spacing-md;
+    border-top: 1px solid $gray-200;
+    @include flex-between;
+    align-items: center;
+    gap: $spacing-md;
+  }
+
+  &__meta {
+    display: flex;
+    gap: $spacing-lg;
+    font-size: $font-sm;
+    color: $gray-500;
+
+    &-item {
+      @include flex-center;
+      gap: $spacing-xs;
+
+      i {
+        color: $primary-color;
+      }
+    }
+  }
+
+  // Card variants
+  &--horizontal {
+    display: flex;
+    align-items: stretch;
+
+    .card__image {
+      flex: 0 0 40%;
+      min-height: 200px;
+
+      @include respond-to(md) {
+        flex: 0 0 50%;
+      }
+    }
+
+    .card__content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    @include respond-to(sm) {
+      flex-direction: column;
+
+      .card__image {
+        flex: none;
+        min-height: 200px;
+      }
+    }
+  }
+
+  &--featured {
+    border: 2px solid $primary-color;
+    position: relative;
+
+    &::before {
+      content: 'Featured';
+      position: absolute;
+      top: -1px;
+      right: $spacing-lg;
+      background-color: $primary-color;
+      color: $white;
+      padding: $spacing-xs $spacing-md;
+      font-size: $font-xs;
+      font-weight: $font-semibold;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-radius: 0 0 $radius-lg $radius-lg;
+    }
+  }
+
+  &--showcase {
+    border-radius: 24px;
+    overflow: hidden;
+    background: rgba($white, 0.98);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 2px solid rgba($white, 0.9);
+    box-shadow:
+      0 20px 60px rgba($black, 0.08),
+      0 8px 25px rgba($black, 0.04),
+      0 2px 10px rgba($black, 0.02);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover {
+      transform: translateY(-12px) scale(1.02);
+      border-color: rgba($primary-500, 0.4);
+      box-shadow:
+        0 32px 80px rgba($primary-500, 0.15),
+        0 16px 40px rgba($black, 0.08),
+        0 8px 20px rgba($black, 0.04);
+      background: rgba($white, 0.99);
+
+      .card__image img {
+        transform: scale(1.08);
+      }
+
+      .card__content {
+        transform: translateY(-4px);
+      }
+    }
+
+    .card__image {
+      border-radius: 20px 20px 0 0;
+      overflow: hidden;
+      position: relative;
+
+      &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(
+          135deg,
+          rgba($primary-500, 0.1) 0%,
+          transparent 50%,
+          rgba($secondary-500, 0.1) 100%
+        );
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        z-index: 1;
+      }
+
+      img {
+        transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+    }
+
+    &:hover .card__image::after {
+      opacity: 1;
+    }
+
+    .card__content {
+      padding: $spacing-xl;
+      transition: transform 0.3s ease;
+    }
+
+    .card__price {
+      font-size: 1.5rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, $primary-600 0%, $primary-500 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: $spacing-sm;
+    }
+
+    .card__address {
+      font-size: 0.95rem;
+      color: $gray-600;
+      font-weight: 500;
+      margin-bottom: $spacing-md;
+
+      i {
+        color: $primary-500;
+        margin-right: $spacing-xs;
+      }
+    }
+
+    .card__features {
+      margin-bottom: $spacing-lg;
+
+      .card__features-item {
+        background: rgba($primary-50, 0.8);
+        border: 1px solid rgba($primary-200, 0.6);
+        border-radius: $radius-lg;
+        padding: $spacing-sm $spacing-md;
+        transition: all 0.3s ease;
+
+        &:hover {
+          background: rgba($primary-100, 0.9);
+          border-color: rgba($primary-300, 0.8);
+          transform: translateY(-2px);
+        }
+
+        i {
+          color: $primary-600;
+        }
+
+        .value {
+          font-weight: 700;
+          color: $gray-900;
+        }
+      }
+    }
+
+    .card__text {
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: $gray-600;
+      margin-bottom: $spacing-lg;
+    }
+
+    .card__footer {
+      border-top: 1px solid rgba($gray-200, 0.6);
+      padding-top: $spacing-md;
+
+      .card__mls {
+        font-size: 0.8rem;
+        color: $gray-500;
+        font-weight: 500;
+      }
+
+      .btn {
+        background: linear-gradient(135deg, $primary-600 0%, $primary-500 100%);
+        border: none;
+        padding: $spacing-sm $spacing-lg;
+        font-weight: 600;
+        border-radius: $radius-lg;
+        transition: all 0.3s ease;
+
+        &:hover {
+          background: linear-gradient(135deg, $primary-700 0%, $primary-600 100%);
+          transform: translateY(-2px);
+          box-shadow: 0 8px 25px rgba($primary-500, 0.3);
+        }
+      }
+    }
+
+    // Enhanced featured badge for showcase variant
+    &.card--featured::before {
+      content: '⭐ Featured';
+      background: linear-gradient(135deg, $accent-color 0%, $accent-light 100%);
+      border-radius: 0 0 $radius-xl $radius-xl;
+      padding: $spacing-sm $spacing-lg;
+      font-size: 0.8rem;
+      font-weight: 700;
+      box-shadow: 0 4px 15px rgba($accent-color, 0.3);
+    }
+  }
+
+  &--outline {
+    background-color: transparent;
+    border: 2px solid $gray-200;
+    box-shadow: none;
+
+    &:hover {
+      border-color: $primary-color;
+      box-shadow: $shadow-lg;
+    }
+  }
+
+  &--glass {
+    @include card-glass;
+
+    &:hover {
+      transform: translateY(-8px);
+      background: rgba($white, 0.4);
+      box-shadow: $shadow-glass-lg, $shadow-primary;
+    }
+  }
+
+  &--premium {
+    @include card-premium;
+
+    &:hover {
+      transform: translateY(-10px);
+      box-shadow: $shadow-3xl, $shadow-accent;
+    }
+  }
+
+  // Property card specific styles
+  &--property {
+    border: 1px solid rgba($gray-200, 0.8);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+    .card__image {
+      @include aspect-ratio(16, 10);
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(
+          135deg,
+          rgba($primary-500, 0.1) 0%,
+          transparent 50%,
+          rgba($secondary-500, 0.1) 100%
+        );
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        z-index: 2;
+      }
+    }
+
+    &:hover .card__image::before {
+      opacity: 1;
+    }
+
+    .card__price {
+      font-family: $font-secondary;
+      font-size: $font-2xl;
+      font-weight: $font-bold;
+      color: $primary-600;
+      margin-bottom: $spacing-xs;
+      position: relative;
+      transition: all 0.3s ease;
+
+      &::before {
+        content: '$';
+        position: absolute;
+        left: -12px;
+        top: 0;
+        font-size: $font-lg;
+        color: $secondary-500;
+        font-weight: $font-medium;
+      }
+    }
+
+    .card__address {
+      color: $gray-600;
+      font-size: $font-sm;
+      margin-bottom: $spacing-md;
+      @include flex-center;
+      justify-content: flex-start;
+      gap: $spacing-xs;
+      transition: color 0.3s ease;
+
+      i {
+        color: $primary-500;
+        transition: color 0.3s ease;
+      }
+    }
+
+    .card__features {
+      display: flex;
+      gap: $spacing-lg;
+      margin-bottom: $spacing-md;
+      padding: $spacing-sm 0;
+      border-top: 1px solid rgba($gray-200, 0.5);
+      border-bottom: 1px solid rgba($gray-200, 0.5);
+
+      &-item {
+        @include flex-center;
+        gap: $spacing-xs;
+        font-size: $font-sm;
+        color: $gray-600;
+        transition: all 0.3s ease;
+
+        i {
+          color: $primary-500;
+          font-size: $font-base;
+          transition: all 0.3s ease;
+        }
+
+        .value {
+          font-weight: $font-semibold;
+          color: $gray-900;
+          transition: color 0.3s ease;
+        }
+
+        &:hover {
+          color: $primary-600;
+
+          i {
+            color: $secondary-500;
+            transform: scale(1.1);
+          }
+        }
+      }
+    }
+
+    .card__mls {
+      font-size: $font-xs;
+      color: $gray-400;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: $spacing-xs $spacing-sm;
+      background: rgba($gray-100, 0.8);
+      border-radius: $radius-full;
+      display: inline-block;
+      transition: all 0.3s ease;
+    }
+
+    &:hover {
+      border-color: rgba($primary-300, 0.6);
+
+      .card__price {
+        color: $primary-700;
+        transform: translateX(2px);
+      }
+
+      .card__address {
+        color: $gray-700;
+
+        i {
+          color: $secondary-500;
+        }
+      }
+
+      .card__mls {
+        background: rgba($primary-100, 0.8);
+        color: $primary-600;
+      }
+    }
+  }
+}

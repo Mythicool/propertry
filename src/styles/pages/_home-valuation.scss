@@ -1,0 +1,250 @@
+// Home Valuation Page Styles
+
+.home-valuation-page {
+  .valuation-benefits {
+    @include flex-center;
+    gap: $spacing-xl;
+    margin-top: $spacing-xl;
+    flex-wrap: wrap;
+
+    .benefit {
+      @include flex-center;
+      gap: $spacing-sm;
+      color: rgba($white, 0.9);
+      font-weight: $font-medium;
+
+      i {
+        color: $secondary-color;
+        font-size: $font-lg;
+      }
+    }
+  }
+
+  .valuation-form-section {
+    .valuation-form-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+  }
+
+  .progress-indicator {
+    margin-bottom: $spacing-3xl;
+
+    .progress-bar {
+      width: 100%;
+      height: 4px;
+      background-color: $gray-200;
+      border-radius: $radius-full;
+      overflow: hidden;
+      margin-bottom: $spacing-xl;
+
+      .progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, $primary-color, $primary-light);
+        border-radius: $radius-full;
+        transition: width $transition-slow;
+      }
+    }
+
+    .progress-steps {
+      @include flex-center;
+      justify-content: space-between;
+      gap: $spacing-md;
+
+      @include respond-to(sm) {
+        justify-content: center;
+        gap: $spacing-3xl;
+      }
+    }
+
+    .progress-step {
+      @include flex-center;
+      flex-direction: column;
+      gap: $spacing-sm;
+      text-align: center;
+      flex: 1;
+
+      @include respond-to(sm) {
+        flex: none;
+      }
+
+      .step-number {
+        width: 48px;
+        height: 48px;
+        border-radius: $radius-full;
+        @include flex-center;
+        background-color: $gray-200;
+        color: $gray-500;
+        font-weight: $font-semibold;
+        transition: all $transition-normal;
+
+        @include respond-to(md) {
+          width: 56px;
+          height: 56px;
+          font-size: $font-lg;
+        }
+      }
+
+      .step-label {
+        font-size: $font-sm;
+        color: $gray-600;
+        font-weight: $font-medium;
+
+        @include respond-to(md) {
+          font-size: $font-base;
+        }
+      }
+
+      &.active {
+        .step-number {
+          background-color: $primary-color;
+          color: $white;
+        }
+
+        .step-label {
+          color: $primary-color;
+        }
+      }
+
+      &.completed {
+        .step-number {
+          background-color: $success;
+          color: $white;
+        }
+
+        .step-label {
+          color: $success;
+        }
+      }
+    }
+  }
+
+  .valuation-form-card {
+    .card__content {
+      padding: $spacing-2xl;
+
+      @include respond-to(md) {
+        padding: $spacing-3xl;
+      }
+    }
+  }
+
+  .form-step {
+    h2 {
+      @include heading-2;
+      margin-bottom: $spacing-sm;
+    }
+
+    > p {
+      @include body-text;
+      color: $gray-600;
+      margin-bottom: $spacing-2xl;
+    }
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $spacing-lg;
+
+    @include respond-to(md) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    &.three-columns {
+      @include respond-to(lg) {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+  }
+
+  .form-navigation {
+    @include flex-between;
+    margin-top: $spacing-2xl;
+    gap: $spacing-md;
+
+    .btn {
+      @include flex-center;
+      gap: $spacing-sm;
+    }
+  }
+
+  .why-choose-section {
+    .features-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: $spacing-xl;
+
+      @include respond-to(md) {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .feature-card {
+      text-align: center;
+      padding: $spacing-xl;
+
+      .feature-icon {
+        width: 80px;
+        height: 80px;
+        margin: 0 auto $spacing-lg;
+        @include flex-center;
+        background: linear-gradient(135deg, $primary-color, $primary-light);
+        border-radius: $radius-full;
+        color: $white;
+        font-size: $font-2xl;
+      }
+
+      h3 {
+        @include heading-3;
+        margin-bottom: $spacing-md;
+      }
+
+      p {
+        @include body-text;
+        color: $gray-600;
+      }
+    }
+  }
+
+  // Success page
+  .success-section {
+    min-height: 60vh;
+    @include flex-center;
+
+    .success-content {
+      max-width: 600px;
+      margin: 0 auto;
+
+      .success-icon {
+        font-size: $font-6xl;
+        color: $success;
+        margin-bottom: $spacing-xl;
+      }
+
+      h1 {
+        @include heading-1;
+        color: $success;
+        margin-bottom: $spacing-lg;
+      }
+
+      .success-message {
+        @include body-text;
+        font-size: $font-lg;
+        color: $gray-600;
+        margin-bottom: $spacing-2xl;
+        line-height: $leading-relaxed;
+      }
+
+      .success-actions {
+        @include flex-center;
+        gap: $spacing-lg;
+        flex-wrap: wrap;
+
+        @include respond-to(sm) {
+          justify-content: center;
+        }
+      }
+    }
+  }
+}

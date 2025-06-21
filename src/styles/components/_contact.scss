@@ -1,0 +1,405 @@
+// Contact Components
+
+.contact-page {
+  .contact-info-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $spacing-xl;
+
+    @include respond-to(sm) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include respond-to(lg) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .contact-card {
+    text-align: center;
+    transition: all $transition-normal;
+
+    &:hover {
+      transform: translateY(-4px);
+    }
+
+    .contact-icon {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto $spacing-lg;
+      @include flex-center;
+      background: linear-gradient(135deg, $primary-color, $primary-light);
+      border-radius: $radius-full;
+      color: $white;
+      font-size: $font-2xl;
+    }
+
+    h3 {
+      @include heading-3;
+      margin-bottom: $spacing-sm;
+    }
+
+    p {
+      @include body-text;
+      color: $gray-600;
+      margin-bottom: $spacing-md;
+    }
+
+    .contact-link {
+      display: inline-block;
+      color: $primary-color;
+      font-weight: $font-semibold;
+      text-decoration: none;
+      font-size: $font-lg;
+      margin-bottom: $spacing-sm;
+      transition: color $transition-normal;
+
+      &:hover {
+        color: $primary-dark;
+      }
+    }
+
+    .contact-note {
+      font-size: $font-sm;
+      color: $gray-500;
+      margin: 0;
+    }
+  }
+}
+
+// Contact form
+.contact-form-section {
+  .contact-form-content {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .contact-form-header {
+    margin-bottom: $spacing-2xl;
+
+    h2 {
+      @include heading-2;
+      margin-bottom: $spacing-md;
+    }
+
+    p {
+      @include body-text;
+      color: $gray-600;
+    }
+  }
+
+  .contact-form-card {
+    .card__content {
+      padding: $spacing-2xl;
+
+      @include respond-to(md) {
+        padding: $spacing-3xl;
+      }
+    }
+  }
+
+  .form-success {
+    padding: $spacing-2xl 0;
+
+    .success-icon {
+      font-size: $font-5xl;
+      color: $success;
+      margin-bottom: $spacing-lg;
+    }
+
+    h3 {
+      @include heading-3;
+      color: $success;
+      margin-bottom: $spacing-md;
+    }
+
+    p {
+      @include body-text;
+      color: $gray-600;
+    }
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $spacing-lg;
+
+    @include respond-to(md) {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .radio-group {
+    display: flex;
+    gap: $spacing-lg;
+    flex-wrap: wrap;
+  }
+}
+
+// About Paula section on contact page
+.about-paula-section {
+  .about-paula-content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $spacing-3xl;
+    align-items: center;
+
+    @include respond-to(lg) {
+      grid-template-columns: 1fr 2fr;
+    }
+  }
+
+  .about-paula-image {
+    text-align: center;
+  }
+
+  .paula-photo {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    border-radius: $radius-2xl;
+    box-shadow: $shadow-xl;
+  }
+
+  .about-paula-text {
+    h2 {
+      @include heading-2;
+      margin-bottom: $spacing-sm;
+    }
+
+    h3 {
+      @include heading-3;
+      margin-bottom: $spacing-lg;
+    }
+
+    p {
+      @include body-text;
+      margin-bottom: $spacing-lg;
+    }
+  }
+
+  .paula-credentials {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $spacing-md;
+    margin: $spacing-xl 0;
+
+    @include respond-to(sm) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .credential {
+      @include flex-center;
+      justify-content: flex-start;
+      gap: $spacing-md;
+      padding: $spacing-md;
+      background-color: $gray-50;
+      border-radius: $radius-lg;
+      border-left: 4px solid $primary-color;
+
+      i {
+        font-size: $font-lg;
+        width: 24px;
+        text-align: center;
+      }
+
+      span {
+        font-weight: $font-medium;
+        color: $gray-700;
+      }
+    }
+  }
+
+  .paula-quote {
+    background-color: $gray-50;
+    padding: $spacing-xl;
+    border-radius: $radius-xl;
+    border-left: 4px solid $secondary-color;
+    margin-top: $spacing-xl;
+
+    blockquote {
+      @include body-text;
+      font-style: italic;
+      font-size: $font-lg;
+      color: $gray-700;
+      margin-bottom: $spacing-md;
+      border: none;
+      padding: 0;
+
+      &::before {
+        content: '"';
+        font-size: $font-3xl;
+        color: $secondary-color;
+        font-family: $font-secondary;
+        line-height: 1;
+      }
+
+      &::after {
+        content: '"';
+        font-size: $font-3xl;
+        color: $secondary-color;
+        font-family: $font-secondary;
+        line-height: 1;
+      }
+    }
+
+    cite {
+      font-weight: $font-semibold;
+      color: $primary-color;
+      font-style: normal;
+
+      &::before {
+        content: '— ';
+      }
+    }
+  }
+}
+
+// FAQ section
+.faq-section {
+  .faq-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $spacing-xl;
+
+    @include respond-to(md) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .faq-item {
+    background-color: $white;
+    padding: $spacing-xl;
+    border-radius: $radius-xl;
+    box-shadow: $shadow-sm;
+    border: 1px solid $gray-200;
+    transition: all $transition-normal;
+
+    &:hover {
+      box-shadow: $shadow-md;
+      transform: translateY(-2px);
+    }
+
+    h3 {
+      @include heading-3;
+      font-size: $font-lg;
+      color: $primary-color;
+      margin-bottom: $spacing-md;
+    }
+
+    p {
+      @include body-text;
+      color: $gray-600;
+      margin: 0;
+    }
+  }
+}
+
+// Property detail contact card
+.contact-card {
+  position: sticky;
+  top: $spacing-xl;
+
+  .agent-info {
+    @include flex-center;
+    justify-content: flex-start;
+    gap: $spacing-md;
+    margin-bottom: $spacing-lg;
+    padding-bottom: $spacing-lg;
+    border-bottom: 1px solid $gray-200;
+
+    .agent-photo {
+      width: 64px;
+      height: 64px;
+      border-radius: $radius-full;
+      object-fit: cover;
+      border: 2px solid $gray-200;
+    }
+
+    h4 {
+      font-size: $font-lg;
+      font-weight: $font-semibold;
+      color: $gray-900;
+      margin-bottom: $spacing-xs;
+    }
+
+    p {
+      color: $gray-600;
+      margin-bottom: $spacing-sm;
+    }
+
+    .agent-contact {
+      .contact-link {
+        display: block;
+        @include flex-center;
+        justify-content: flex-start;
+        gap: $spacing-xs;
+        color: $gray-600;
+        text-decoration: none;
+        font-size: $font-sm;
+        margin-bottom: $spacing-xs;
+        transition: color $transition-normal;
+
+        &:hover {
+          color: $primary-color;
+        }
+
+        i {
+          width: 16px;
+          text-align: center;
+        }
+      }
+    }
+  }
+
+  .btn {
+    margin-bottom: $spacing-md;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+// Mortgage calculator
+.mortgage-calculator {
+  margin-top: $spacing-lg;
+
+  h4 {
+    @include heading-3;
+    font-size: $font-lg;
+    margin-bottom: $spacing-lg;
+  }
+
+  .calculator-result {
+    background-color: $gray-50;
+    padding: $spacing-lg;
+    border-radius: $radius-lg;
+    margin-bottom: $spacing-lg;
+    text-align: center;
+
+    .monthly-payment {
+      .label {
+        display: block;
+        font-size: $font-sm;
+        color: $gray-600;
+        margin-bottom: $spacing-xs;
+      }
+
+      .amount {
+        display: block;
+        font-size: $font-2xl;
+        font-weight: $font-bold;
+        color: $primary-color;
+        font-family: $font-secondary;
+      }
+    }
+
+    .calculator-note {
+      font-size: $font-xs;
+      color: $gray-500;
+      margin-top: $spacing-md;
+      margin-bottom: 0;
+    }
+  }
+}

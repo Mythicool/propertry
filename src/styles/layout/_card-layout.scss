@@ -1,0 +1,357 @@
+// Card-Based Layout System
+
+// Main content wrapper with card styling
+.content-card {
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 20px;
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.08),
+    0 8px 25px rgba(0, 0, 0, 0.04),
+    0 2px 10px rgba(0, 0, 0, 0.02),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  margin: 2rem 0;
+  padding: 3rem;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  @include respond-to(md) {
+    margin: 3rem 0;
+    padding: 4rem;
+    border-radius: 24px;
+  }
+
+  @include respond-to(lg) {
+    margin: 4rem 0;
+    padding: 5rem;
+  }
+
+  // Subtle hover effect for interactive cards
+  &--interactive {
+    cursor: pointer;
+    
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow:
+        0 25px 80px rgba(0, 0, 0, 0.12),
+        0 10px 30px rgba(0, 0, 0, 0.08),
+        0 4px 15px rgba(0, 0, 0, 0.04),
+        inset 0 1px 0 rgba(255, 255, 255, 0.5);
+      background: rgba(255, 255, 255, 0.99);
+    }
+  }
+
+  // Variant for less prominent sections
+  &--subtle {
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow:
+      0 10px 30px rgba(0, 0, 0, 0.06),
+      0 4px 15px rgba(0, 0, 0, 0.03),
+      0 1px 6px rgba(0, 0, 0, 0.02);
+    padding: 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+
+    @include respond-to(md) {
+      padding: 3rem;
+    }
+
+    &::after {
+      opacity: 0.3;
+    }
+  }
+
+  // Variant for hero-adjacent sections
+  &--prominent {
+    background: rgba(255, 255, 255, 0.99);
+    box-shadow:
+      0 25px 80px rgba(59, 130, 246, 0.08),
+      0 15px 50px rgba(0, 0, 0, 0.06),
+      0 8px 25px rgba(0, 0, 0, 0.04),
+      inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    border-radius: 24px;
+  }
+
+  // Add subtle shimmer effect with modern gradient
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.15),
+      rgba(59, 130, 246, 0.05),
+      rgba(255, 255, 255, 0.15),
+      transparent
+    );
+    transition: left 0.8s ease;
+    pointer-events: none;
+  }
+
+  &:hover::before {
+    left: 100%;
+  }
+
+  // Add subtle top border accent
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #3b82f6, #6366f1, #8b5cf6);
+    border-radius: 20px 20px 0 0;
+    opacity: 0.6;
+  }
+}
+
+// Section wrapper that applies card styling
+.section-card {
+  @extend .content-card;
+  
+  // Remove default section padding since card provides it
+  .section {
+    padding: 0;
+  }
+
+  // Adjust section headers within cards
+  .section-header {
+    margin-bottom: 3rem;
+
+    h2 {
+      color: #0f172a;
+      position: relative;
+      font-weight: 700;
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -8px;
+        left: 0;
+        width: 60px;
+        height: 3px;
+        background: linear-gradient(135deg, #3b82f6 0%, #6366f1 50%, #8b5cf6 100%);
+        border-radius: 2px;
+      }
+    }
+
+    .section-subtitle {
+      color: #475569;
+      margin-top: 1rem;
+      font-weight: 500;
+    }
+  }
+
+  // Center-aligned headers
+  &.text-center .section-header h2::after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+// Special styling for different section types
+.hero-adjacent-card {
+  @extend .content-card;
+  @extend .content-card--prominent;
+  margin-top: -5rem;
+  z-index: 2;
+  position: relative;
+
+  @include respond-to(md) {
+    margin-top: -6rem;
+  }
+}
+
+.featured-section-card {
+  @extend .content-card;
+  @extend .content-card--prominent;
+  
+  // Add gradient border effect
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    padding: 2px;
+    background: linear-gradient(135deg, #3b82f6 0%, #6366f1 25%, #8b5cf6 50%, #ec4899 75%, #f59e0b 100%);
+    border-radius: inherit;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: xor;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    opacity: 0.3;
+    pointer-events: none;
+  }
+}
+
+// Grid layout for card sections
+.card-grid {
+  display: grid;
+  gap: 2rem;
+
+  @include respond-to(md) {
+    gap: 3rem;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include respond-to(lg) {
+    gap: 4rem;
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .content-card {
+    margin: 0; // Remove default margins in grid
+  }
+}
+
+// Responsive container for cards
+.card-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+
+  @include respond-to(md) {
+    padding: 0 2rem;
+  }
+
+  @include respond-to(lg) {
+    padding: 0 3rem;
+  }
+}
+
+// Special footer card styling
+.footer-card {
+  @extend .content-card;
+  @extend .content-card--subtle;
+  margin-bottom: 0;
+  border-radius: 16px 16px 0 0;
+
+  @include respond-to(md) {
+    border-radius: 24px 24px 0 0;
+  }
+}
+
+// Utility classes for card content
+.card-content {
+  position: relative;
+  z-index: 1;
+}
+
+.card-header {
+  margin-bottom: 2rem;
+
+  @include respond-to(md) {
+    margin-bottom: 3rem;
+  }
+}
+
+.card-body {
+  margin-bottom: 1.5rem;
+}
+
+.card-footer {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(229, 231, 235, 0.6);
+}
+
+// Accessibility improvements
+@media (prefers-reduced-motion: reduce) {
+  .content-card {
+    transition: none;
+
+    &::before {
+      transition: none;
+    }
+
+    &:hover::before {
+      left: -100%; // Disable shimmer effect
+    }
+  }
+
+  .floating-element {
+    animation: none !important;
+    transition: transform 0.2s ease;
+
+    &:hover {
+      transform: scale(1.1) !important;
+    }
+  }
+}
+
+// High contrast mode support
+@media (prefers-contrast: high) {
+  .content-card {
+    border: 2px solid #1f2937;
+    background: #ffffff;
+
+    &--subtle {
+      background: #f9fafb;
+    }
+  }
+
+  .section-header h2::after {
+    background: #1f2937;
+  }
+}
+
+// Performance optimizations
+.content-card {
+  will-change: transform;
+  contain: layout style paint;
+
+  &:not(:hover) {
+    will-change: auto;
+  }
+}
+
+// Focus management for accessibility
+.content-card--interactive {
+  &:focus-visible {
+    outline: 3px solid #3b82f6;
+    outline-offset: 2px;
+  }
+}
+
+// Ensure sufficient contrast ratios
+.hero-adjacent-card,
+.featured-section-card,
+.section-card {
+  // Ensure text contrast meets WCAG AA standards
+  color: #0f172a;
+
+  h1, h2, h3, h4, h5, h6 {
+    color: #0f172a;
+    font-weight: 700;
+  }
+
+  p, span, div {
+    color: #334155;
+    font-weight: 400;
+    line-height: 1.7;
+  }
+
+  .section-subtitle {
+    color: #475569;
+    font-weight: 500;
+  }
+
+  // Enhanced link styling
+  a {
+    color: #3b82f6;
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: #1d4ed8;
+    }
+  }
+}

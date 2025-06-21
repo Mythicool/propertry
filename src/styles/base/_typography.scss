@@ -1,0 +1,253 @@
+// Typography Styles
+
+// Headings
+h1, .h1 {
+  @include heading-1;
+  margin-bottom: $spacing-lg;
+}
+
+h2, .h2 {
+  @include heading-2;
+  margin-bottom: $spacing-md;
+}
+
+h3, .h3 {
+  @include heading-3;
+  margin-bottom: $spacing-md;
+}
+
+h4, .h4 {
+  font-family: $font-secondary;
+  font-size: $font-xl;
+  font-weight: $font-semibold;
+  line-height: $leading-snug;
+  color: $gray-900;
+  margin-bottom: $spacing-sm;
+
+  @include respond-to(md) {
+    font-size: $font-2xl;
+  }
+}
+
+h5, .h5 {
+  font-family: $font-primary;
+  font-size: $font-lg;
+  font-weight: $font-semibold;
+  line-height: $leading-snug;
+  color: $gray-900;
+  margin-bottom: $spacing-sm;
+
+  @include respond-to(md) {
+    font-size: $font-xl;
+  }
+}
+
+h6, .h6 {
+  font-family: $font-primary;
+  font-size: $font-base;
+  font-weight: $font-semibold;
+  line-height: $leading-snug;
+  color: $gray-900;
+  margin-bottom: $spacing-sm;
+
+  @include respond-to(md) {
+    font-size: $font-lg;
+  }
+}
+
+// Body text
+p, .body-text {
+  @include body-text;
+  margin-bottom: $spacing-md;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+// Text sizes
+.text-xs {
+  font-size: $font-xs;
+}
+
+.text-sm {
+  font-size: $font-sm;
+}
+
+.text-base {
+  font-size: $font-base;
+}
+
+.text-lg {
+  font-size: $font-lg;
+}
+
+.text-xl {
+  font-size: $font-xl;
+}
+
+.text-2xl {
+  font-size: $font-2xl;
+}
+
+.text-3xl {
+  font-size: $font-3xl;
+}
+
+.text-4xl {
+  font-size: $font-4xl;
+}
+
+.text-5xl {
+  font-size: $font-5xl;
+}
+
+.text-6xl {
+  font-size: $font-6xl;
+}
+
+// Font weights
+.font-light {
+  font-weight: $font-light;
+}
+
+.font-regular {
+  font-weight: $font-regular;
+}
+
+.font-medium {
+  font-weight: $font-medium;
+}
+
+.font-semibold {
+  font-weight: $font-semibold;
+}
+
+.font-bold {
+  font-weight: $font-bold;
+}
+
+// Text colors
+.text-primary {
+  color: $primary-color;
+}
+
+.text-secondary {
+  color: $secondary-color;
+}
+
+.text-gray-500 {
+  color: $gray-500;
+}
+
+.text-gray-600 {
+  color: $gray-600;
+}
+
+.text-gray-700 {
+  color: $gray-700;
+}
+
+.text-gray-800 {
+  color: $gray-800;
+}
+
+.text-gray-900 {
+  color: $gray-900;
+}
+
+.text-white {
+  color: $white;
+}
+
+// Text alignment
+.text-left {
+  text-align: left;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+// Line heights
+.leading-tight {
+  line-height: $leading-tight;
+}
+
+.leading-snug {
+  line-height: $leading-snug;
+}
+
+.leading-normal {
+  line-height: $leading-normal;
+}
+
+.leading-relaxed {
+  line-height: $leading-relaxed;
+}
+
+.leading-loose {
+  line-height: $leading-loose;
+}
+
+// Links
+a {
+  color: $primary-color;
+  transition: color $transition-normal;
+
+  &:hover {
+    color: $primary-dark;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $primary-color;
+    outline-offset: 2px;
+    border-radius: $radius-sm;
+  }
+}
+
+// Lists
+ul, ol {
+  margin-bottom: $spacing-md;
+
+  li {
+    margin-bottom: $spacing-xs;
+  }
+}
+
+// Blockquotes
+blockquote {
+  border-left: 4px solid $primary-color;
+  padding-left: $spacing-lg;
+  margin: $spacing-xl 0;
+  font-style: italic;
+  color: $gray-600;
+  font-size: $font-lg;
+}
+
+// Code
+code {
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 0.875em;
+  background-color: $gray-100;
+  padding: 0.125rem 0.25rem;
+  border-radius: $radius-sm;
+  color: $gray-800;
+}
+
+pre {
+  background-color: $gray-100;
+  padding: $spacing-md;
+  border-radius: $radius-lg;
+  overflow-x: auto;
+  margin-bottom: $spacing-md;
+
+  code {
+    background-color: transparent;
+    padding: 0;
+  }
+}

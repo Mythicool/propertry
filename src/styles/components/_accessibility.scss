@@ -1,0 +1,325 @@
+// Accessibility Styles
+
+// Skip Link
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: $primary-color;
+  color: $white;
+  padding: $spacing-md $spacing-lg;
+  border-radius: $radius-lg;
+  text-decoration: none;
+  font-weight: $font-semibold;
+  z-index: $z-modal + 1;
+  box-shadow: $shadow-xl;
+
+  &:focus {
+    top: $spacing-md;
+  }
+}
+
+// Focus Styles
+*:focus {
+  outline: 2px solid $primary-color;
+  outline-offset: 2px;
+}
+
+// Enhanced focus for interactive elements
+button:focus,
+a:focus,
+input:focus,
+textarea:focus,
+select:focus,
+[tabindex]:focus {
+  outline: 3px solid $primary-color;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 5px rgba($primary-color, 0.2);
+}
+
+// High contrast mode support
+@media (prefers-contrast: high) {
+  .card {
+    border: 2px solid $gray-900;
+  }
+
+  .btn {
+    border: 2px solid currentColor;
+    
+    &--outline {
+      border-width: 3px;
+    }
+  }
+
+  .form__input,
+  .form__textarea,
+  .form__select {
+    border: 2px solid $gray-900;
+    
+    &:focus {
+      border-color: $primary-color;
+      border-width: 3px;
+    }
+  }
+}
+
+// Reduced motion support
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .parallax-element {
+    transform: none !important;
+  }
+
+  .floating {
+    animation: none !important;
+  }
+}
+
+// Screen reader only content
+.sr-only {
+  @include visually-hidden;
+}
+
+// Screen reader accessible but visually hidden
+.visually-hidden {
+  @include visually-hidden;
+}
+
+// Keyboard navigation styles
+.keyboard-navigation {
+  button:focus,
+  a:focus,
+  input:focus,
+  textarea:focus,
+  select:focus,
+  [tabindex]:focus {
+    outline: 3px solid $secondary-color;
+    outline-offset: 3px;
+    box-shadow: 0 0 0 6px rgba($secondary-color, 0.3);
+  }
+}
+
+// Large text support
+.large-text {
+  font-size: 120% !important;
+  
+  .btn {
+    padding: $spacing-lg $spacing-2xl;
+    font-size: $font-lg;
+  }
+  
+  .form__input,
+  .form__textarea,
+  .form__select {
+    font-size: $font-lg;
+    padding: $spacing-lg;
+  }
+}
+
+// High contrast theme
+.high-contrast {
+  --primary-color: #000000;
+  --secondary-color: #ffffff;
+  --background-color: #ffffff;
+  --text-color: #000000;
+  
+  background: var(--background-color);
+  color: var(--text-color);
+  
+  .card {
+    background: var(--background-color);
+    border: 2px solid var(--text-color);
+    color: var(--text-color);
+  }
+  
+  .btn--primary {
+    background: var(--text-color);
+    color: var(--background-color);
+    border: 2px solid var(--text-color);
+  }
+  
+  .btn--outline {
+    background: var(--background-color);
+    color: var(--text-color);
+    border: 2px solid var(--text-color);
+  }
+}
+
+// Focus indicators for different interaction methods
+.focus-visible {
+  outline: 3px solid $primary-color;
+  outline-offset: 2px;
+}
+
+// Ensure interactive elements are large enough
+button,
+a,
+input,
+textarea,
+select,
+[role="button"],
+[role="link"] {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+// Color contrast helpers
+.text-contrast-aa {
+  color: $gray-700; // Ensures AA compliance
+}
+
+.text-contrast-aaa {
+  color: $gray-900; // Ensures AAA compliance
+}
+
+// Motion safe animations
+@media (prefers-reduced-motion: no-preference) {
+  .motion-safe-fade {
+    opacity: 0;
+    animation: fadeIn 0.5s ease-out forwards;
+  }
+  
+  .motion-safe-slide {
+    transform: translateY(20px);
+    opacity: 0;
+    animation: slideInUp 0.6s ease-out forwards;
+  }
+}
+
+// Animations that respect motion preferences
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInUp {
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+// Error and success states with better accessibility
+.error-message {
+  color: #d32f2f;
+  background: #ffebee;
+  border: 1px solid #ffcdd2;
+  padding: $spacing-sm $spacing-md;
+  border-radius: $radius-md;
+  
+  &::before {
+    content: '⚠️ ';
+    margin-right: $spacing-xs;
+  }
+}
+
+.success-message {
+  color: #2e7d32;
+  background: #e8f5e8;
+  border: 1px solid #c8e6c9;
+  padding: $spacing-sm $spacing-md;
+  border-radius: $radius-md;
+  
+  &::before {
+    content: '✅ ';
+    margin-right: $spacing-xs;
+  }
+}
+
+// Loading states with accessibility
+.loading-accessible {
+  position: relative;
+  
+  &::after {
+    content: 'Loading...';
+    @include visually-hidden;
+  }
+  
+  &[aria-busy="true"] {
+    pointer-events: none;
+    opacity: 0.7;
+  }
+}
+
+// Tooltip accessibility
+.tooltip {
+  position: relative;
+  
+  &[aria-describedby] {
+    cursor: help;
+  }
+}
+
+.tooltip-content {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: $gray-900;
+  color: $white;
+  padding: $spacing-sm $spacing-md;
+  border-radius: $radius-md;
+  font-size: $font-sm;
+  white-space: nowrap;
+  z-index: $z-tooltip;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity $transition-normal;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-top-color: $gray-900;
+  }
+  
+  &.visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+// Print styles
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  .print-only {
+    display: block !important;
+  }
+  
+  * {
+    background: transparent !important;
+    color: black !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+  
+  a,
+  a:visited {
+    text-decoration: underline;
+  }
+  
+  a[href]:after {
+    content: " (" attr(href) ")";
+  }
+  
+  .btn {
+    border: 1px solid black;
+    padding: $spacing-sm;
+  }
+}

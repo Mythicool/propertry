@@ -1,0 +1,305 @@
+// Header Component
+
+.header {
+  background-color: $white;
+  box-shadow: $shadow-md;
+  position: sticky;
+  top: 0;
+  z-index: $z-sticky;
+  transition: all $transition-normal;
+
+  &__container {
+    @include container;
+    @include flex-between;
+    padding-top: $spacing-md;
+    padding-bottom: $spacing-md;
+    gap: $spacing-lg;
+
+    @include respond-to(lg) {
+      padding-top: $spacing-lg;
+      padding-bottom: $spacing-lg;
+    }
+  }
+
+  &__logo {
+    @include flex-center;
+    gap: $spacing-md;
+    text-decoration: none;
+    color: $gray-900;
+    transition: all $transition-normal;
+
+    &:hover {
+      transform: scale(1.02);
+    }
+
+    img {
+      height: 40px;
+      width: auto;
+
+      @include respond-to(md) {
+        height: 48px;
+      }
+    }
+
+    &-text {
+      @include flex-column;
+      align-items: flex-start;
+
+      .name {
+        font-family: $font-secondary;
+        font-size: $font-xl;
+        font-weight: $font-bold;
+        color: $primary-color;
+        line-height: 1;
+
+        @include respond-to(md) {
+          font-size: $font-2xl;
+        }
+      }
+
+      .title {
+        font-size: $font-sm;
+        color: $gray-600;
+        font-weight: $font-medium;
+        margin-top: 2px;
+
+        @include respond-to(md) {
+          font-size: $font-base;
+        }
+      }
+    }
+  }
+
+  &__nav {
+    display: none;
+
+    @include respond-to(lg) {
+      display: flex;
+    }
+  }
+
+  &__contact {
+    display: none;
+    gap: $spacing-lg;
+
+    @include respond-to(md) {
+      @include flex-center;
+    }
+
+    &-phone {
+      @include flex-center;
+      gap: $spacing-sm;
+      color: $primary-color;
+      font-weight: $font-semibold;
+      text-decoration: none;
+      transition: all $transition-normal;
+
+      &:hover {
+        color: $primary-dark;
+        transform: scale(1.05);
+      }
+
+      i {
+        font-size: $font-lg;
+      }
+    }
+
+    &-email {
+      @include button-primary;
+      padding: $spacing-sm $spacing-lg;
+      font-size: $font-sm;
+    }
+  }
+
+  &__mobile-toggle {
+    @include button-ghost;
+    padding: $spacing-sm;
+    font-size: $font-xl;
+
+    @include respond-to(lg) {
+      display: none;
+    }
+  }
+
+  // Mobile menu
+  &__mobile-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: $white;
+    z-index: $z-modal;
+    transform: translateX(-100%);
+    transition: transform $transition-normal;
+    overflow-y: auto;
+
+    &.active {
+      transform: translateX(0);
+    }
+
+    @include respond-to(lg) {
+      display: none;
+    }
+
+    &-header {
+      @include flex-between;
+      padding: $spacing-lg;
+      border-bottom: 1px solid $gray-200;
+
+      .logo {
+        @include flex-center;
+        gap: $spacing-sm;
+        color: $primary-color;
+        font-family: $font-secondary;
+        font-size: $font-xl;
+        font-weight: $font-bold;
+      }
+
+      .close {
+        @include button-ghost;
+        padding: $spacing-sm;
+        font-size: $font-xl;
+      }
+    }
+
+    &-nav {
+      padding: $spacing-lg;
+
+      .nav-link {
+        display: block;
+        padding: $spacing-md 0;
+        color: $gray-700;
+        font-weight: $font-medium;
+        text-decoration: none;
+        border-bottom: 1px solid $gray-100;
+        transition: all $transition-normal;
+
+        &:hover,
+        &.active {
+          color: $primary-color;
+          padding-left: $spacing-md;
+        }
+
+        &:last-child {
+          border-bottom: none;
+        }
+      }
+    }
+
+    &-contact {
+      padding: $spacing-lg;
+      border-top: 1px solid $gray-200;
+      background-color: $gray-50;
+
+      .contact-item {
+        @include flex-center;
+        gap: $spacing-md;
+        padding: $spacing-md 0;
+        color: $gray-700;
+        text-decoration: none;
+        transition: all $transition-normal;
+
+        &:hover {
+          color: $primary-color;
+        }
+
+        i {
+          font-size: $font-lg;
+          color: $primary-color;
+          width: 24px;
+          text-align: center;
+        }
+      }
+
+      .btn {
+        margin-top: $spacing-lg;
+      }
+    }
+  }
+
+  // Mobile menu backdrop
+  &__backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(135deg, rgba($black, 0.6) 0%, rgba($primary-900, 0.4) 100%);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: $z-modal-backdrop;
+    opacity: 0;
+    visibility: hidden;
+    transition: all $transition-normal;
+
+    &.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    @include respond-to(lg) {
+      display: none;
+    }
+  }
+
+  // Enhanced touch interactions
+  &__contact-phone,
+  &__contact-email,
+  &__mobile-toggle {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+
+    @media (hover: none) and (pointer: coarse) {
+      min-height: 44px;
+      min-width: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  // Improved mobile menu animations
+  &__mobile-menu {
+    .nav-link {
+      position: relative;
+      overflow: hidden;
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba($primary-300, 0.2), transparent);
+        transition: left 0.6s ease;
+      }
+
+      &:active::before {
+        left: 100%;
+      }
+    }
+
+    .contact-item {
+      position: relative;
+      overflow: hidden;
+
+      &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba($primary-500, 0.1);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      &:active::after {
+        opacity: 1;
+      }
+    }
+  }
+}

@@ -1,0 +1,297 @@
+// Property Detail Page Styles
+
+.property-detail {
+  .breadcrumb-section {
+    background-color: $gray-50;
+    padding: $spacing-lg 0;
+    border-bottom: 1px solid $gray-200;
+  }
+
+  .property-header {
+    padding: $spacing-2xl 0;
+    border-bottom: 1px solid $gray-200;
+
+    &__content {
+      @include flex-between;
+      align-items: flex-start;
+      gap: $spacing-xl;
+      flex-wrap: wrap;
+
+      @include respond-to(lg) {
+        flex-wrap: nowrap;
+      }
+    }
+
+    &__info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    &__address {
+      @include heading-1;
+      font-size: $font-2xl;
+      margin-bottom: $spacing-md;
+
+      @include respond-to(md) {
+        font-size: $font-3xl;
+      }
+
+      @include respond-to(lg) {
+        font-size: $font-4xl;
+      }
+    }
+
+    &__price {
+      font-family: $font-secondary;
+      font-size: $font-3xl;
+      font-weight: $font-bold;
+      color: $primary-color;
+      margin-bottom: $spacing-md;
+
+      @include respond-to(md) {
+        font-size: $font-4xl;
+      }
+    }
+
+    &__features {
+      @include flex-center;
+      justify-content: flex-start;
+      gap: $spacing-lg;
+      margin-bottom: $spacing-md;
+      flex-wrap: wrap;
+
+      .feature {
+        @include flex-center;
+        gap: $spacing-xs;
+        color: $gray-600;
+        font-weight: $font-medium;
+
+        i {
+          color: $primary-color;
+        }
+      }
+    }
+
+    &__status {
+      @include flex-center;
+      justify-content: flex-start;
+      gap: $spacing-md;
+      flex-wrap: wrap;
+
+      .status-badge {
+        padding: $spacing-xs $spacing-md;
+        border-radius: $radius-full;
+        font-size: $font-sm;
+        font-weight: $font-semibold;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+
+        &--active {
+          background-color: $success;
+          color: $white;
+        }
+
+        &--pending {
+          background-color: $warning;
+          color: $white;
+        }
+
+        &--sold {
+          background-color: $error;
+          color: $white;
+        }
+      }
+
+      .mls-number {
+        color: $gray-500;
+        font-size: $font-sm;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+    }
+
+    &__actions {
+      @include flex-center;
+      gap: $spacing-md;
+      flex-wrap: wrap;
+
+      @include respond-to(lg) {
+        flex-direction: column;
+        align-items: stretch;
+        min-width: 200px;
+      }
+    }
+  }
+
+  .property-gallery {
+    padding: $spacing-2xl 0;
+  }
+
+  .property-details {
+    &__content {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: $spacing-3xl;
+
+      @include respond-to(lg) {
+        grid-template-columns: 2fr 1fr;
+      }
+    }
+
+    &__main {
+      > div {
+        margin-bottom: $spacing-3xl;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+
+      h2, h3 {
+        margin-bottom: $spacing-lg;
+      }
+
+      p {
+        @include body-text;
+        line-height: $leading-relaxed;
+      }
+    }
+
+    &__sidebar {
+      > div {
+        margin-bottom: $spacing-xl;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+
+  .property-description {
+    p {
+      font-size: $font-lg;
+      line-height: $leading-relaxed;
+    }
+  }
+
+  .property-features {
+    .features-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: $spacing-md;
+
+      @include respond-to(sm) {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      @include respond-to(md) {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .feature-item {
+      @include flex-center;
+      justify-content: flex-start;
+      gap: $spacing-sm;
+      padding: $spacing-md;
+      background-color: $gray-50;
+      border-radius: $radius-lg;
+      border-left: 3px solid $primary-color;
+
+      i {
+        font-size: $font-sm;
+      }
+    }
+  }
+
+  .property-specs {
+    .specs-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: $spacing-lg;
+
+      @include respond-to(sm) {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      @include respond-to(md) {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .spec-item {
+      @include flex-between;
+      padding: $spacing-md 0;
+      border-bottom: 1px solid $gray-200;
+
+      .spec-label {
+        color: $gray-600;
+        font-weight: $font-medium;
+      }
+
+      .spec-value {
+        color: $gray-900;
+        font-weight: $font-semibold;
+      }
+    }
+  }
+
+  .property-schools {
+    .schools-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: $spacing-lg;
+
+      @include respond-to(md) {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .school-item {
+      @include flex-center;
+      justify-content: flex-start;
+      gap: $spacing-md;
+      padding: $spacing-lg;
+      background-color: $gray-50;
+      border-radius: $radius-lg;
+      border: 1px solid $gray-200;
+
+      i {
+        font-size: $font-xl;
+      }
+
+      .school-level {
+        font-size: $font-sm;
+        color: $gray-600;
+        font-weight: $font-medium;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .school-name {
+        font-weight: $font-semibold;
+        color: $gray-900;
+      }
+    }
+  }
+}
+
+// Loading container
+.loading-container {
+  @include flex-center;
+  flex-direction: column;
+  min-height: 50vh;
+  gap: $spacing-lg;
+
+  .loading {
+    width: 40px;
+    height: 40px;
+    border-width: 4px;
+  }
+
+  p {
+    @include body-text;
+    color: $gray-600;
+  }
+}

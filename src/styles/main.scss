@@ -1,0 +1,39 @@
+// Main SCSS file - imports all other styles
+// Updated to fix compilation issues
+@import 'abstracts/variables';
+@import 'abstracts/mixins';
+@import 'base/reset';
+@import 'base/typography';
+@import 'base/base';
+
+// Layout
+@import 'layout/card-layout';
+
+// Components
+@import 'components/header';
+@import 'components/footer';
+@import 'components/navigation';
+@import 'components/buttons';
+@import 'components/forms';
+@import 'components/cards';
+@import 'components/hero';
+@import 'components/search';
+@import 'components/gallery';
+@import 'components/testimonials';
+@import 'components/contact';
+@import 'components/modal';
+@import 'components/pagination';
+@import 'components/animations';
+@import 'components/stats';
+@import 'components/scroll';
+@import 'components/loading';
+@import 'components/effects';
+@import 'components/accessibility';
+@import 'components/featured-properties';
+
+// Pages
+@import 'pages/property-detail';
+@import 'pages/home-valuation';
+
+// Utilities
+@import 'utilities/utilities';

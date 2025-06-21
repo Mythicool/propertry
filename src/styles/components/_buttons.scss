@@ -1,0 +1,151 @@
+// Button Components
+
+.btn {
+  @include button-base;
+  padding: $spacing-md $spacing-xl;
+  font-size: $font-base;
+  gap: $spacing-sm;
+
+  // Size variants
+  &--sm {
+    padding: $spacing-sm $spacing-lg;
+    font-size: $font-sm;
+  }
+
+  &--lg {
+    padding: $spacing-lg $spacing-2xl;
+    font-size: $font-lg;
+  }
+
+  // Style variants
+  &--primary {
+    @include button-primary;
+  }
+
+  &--secondary {
+    @include button-secondary;
+  }
+
+  &--outline {
+    @include button-outline;
+  }
+
+  &--ghost {
+    @include button-base;
+    background-color: transparent;
+    color: $gray-700;
+
+    &:hover:not(:disabled) {
+      background-color: $gray-100;
+      color: $gray-900;
+    }
+  }
+
+  &--link {
+    @include button-base;
+    background-color: transparent;
+    color: $primary-color;
+    padding: 0;
+    border-radius: 0;
+
+    &:hover:not(:disabled) {
+      color: $primary-dark;
+      text-decoration: underline;
+      transform: none;
+      box-shadow: none;
+    }
+  }
+
+  // Icon buttons
+  &--icon {
+    padding: $spacing-md;
+    width: auto;
+    height: auto;
+    aspect-ratio: 1;
+
+    &.btn--sm {
+      padding: $spacing-sm;
+    }
+
+    &.btn--lg {
+      padding: $spacing-lg;
+    }
+  }
+
+  // Full width
+  &--full {
+    width: 100%;
+  }
+
+  // Loading state
+  &--loading {
+    position: relative;
+    color: transparent;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: white;
+      animation: spin 1s ease-in-out infinite;
+    }
+  }
+}
+
+// Button group
+.btn-group {
+  display: inline-flex;
+  border-radius: $radius-lg;
+  overflow: hidden;
+  box-shadow: $shadow-sm;
+
+  .btn {
+    border-radius: 0;
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
+
+    &:first-child {
+      border-top-left-radius: $radius-lg;
+      border-bottom-left-radius: $radius-lg;
+    }
+
+    &:last-child {
+      border-top-right-radius: $radius-lg;
+      border-bottom-right-radius: $radius-lg;
+      border-right: none;
+    }
+
+    &:only-child {
+      border-radius: $radius-lg;
+      border-right: none;
+    }
+  }
+}
+
+// Floating Action Button
+.fab {
+  @include button-primary;
+  position: fixed;
+  bottom: $spacing-xl;
+  right: $spacing-xl;
+  width: 56px;
+  height: 56px;
+  border-radius: $radius-full;
+  box-shadow: $shadow-xl;
+  z-index: $z-fixed;
+  padding: 0;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+
+  @include respond-to(md) {
+    bottom: $spacing-2xl;
+    right: $spacing-2xl;
+  }
+}

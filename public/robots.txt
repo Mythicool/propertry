@@ -1,0 +1,13 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://paulawilsonrealty.com/sitemap.xml
+
+# Disallow admin areas (if any)
+Disallow: /admin/
+Disallow: /private/
+
+# Allow all search engines to crawl the site
+# This helps with SEO for the real estate website
